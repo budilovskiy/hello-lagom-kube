@@ -1,0 +1,23 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cassandra
+spec:
+  ports:
+    - name: "cql"
+      protocol: "TCP"
+      port: 9042
+      targetPort:  9042
+      nodePort: 0
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: cassandra
+  namespace: default
+subsets:
+  - addresses:
+      - ip: 192.168.99.1
+    ports:
+      - name: "cql"
+        port: 9042
